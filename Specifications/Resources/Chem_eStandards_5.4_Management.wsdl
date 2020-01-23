@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions
+     name="CESOrderManagementBusinessServices"
+     targetNamespace="urn:cidx:names:specification:ces:wsdl:ordermanagement:5.4.0"
+     xmlns="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:tns="urn:cidx:names:specification:ces:wsdl:ordermanagement:5.4.0"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+     xmlns:cidx="urn:cidx:names:specification:ces:schema:all:5.4.0">
+     
+    <wsp:UsingPolicy xmlns:n1="http://schemas.xmlsoap.org/wsdl/" n1:Required="false"/>
+
+    <types>
+        <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+            xmlns:cidx="urn:cidx:names:specification:ces:schema:all:5.4.0" 
+            xmlns:tns="urn:cidx:names:specification:ces:wsdl:ordermanagement:5.4.0" 
+            targetNamespace="urn:cidx:names:specification:ces:wsdl:ordermanagement:5.4.0">
+            <import schemaLocation="xsd/OAGi_Chem_eStandards_5.4.0.xsd" namespace="urn:cidx:names:specification:ces:schema:all:5.4.0"/>
+            <xsd:complexType name="HeaderType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="businessProcess" type="tns:CESToken"/>
+                    <xsd:element minOccurs="0" name="processStep" type="tns:CESToken"/>
+                    <xsd:element minOccurs="0" name="partnerId" type="tns:CESToken"/>
+                    <xsd:element minOccurs="0" name="partnerType" type="tns:CESToken"/>
+                    <xsd:element minOccurs="0" name="conversationId" type="tns:CESToken"/>
+                    <xsd:element minOccurs="0" name="messageId" type="tns:CESToken"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="Header" type="tns:HeaderType"/>
+            <xsd:complexType name="HeaderResponseType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="processStep" type="tns:CESToken"/>
+                    <xsd:element minOccurs="0" name="messageId" type="tns:CESToken"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:simpleType name="CESToken">
+                <xsd:restriction base="xsd:token">
+                    <xsd:pattern value="[a-zA-Z0-9_\-:\.]*"/>
+                    <xsd:minLength value="0"/>
+                    <xsd:maxLength value="128"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:complexType name="OrderCreateType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderType"/>
+                    <xsd:element minOccurs="0" name="OrderCreate" type="cidx:OrderCreateType"/>
+            </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ConfirmType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderResponseType"/>
+            </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="OrderResponseType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderType"/>
+                    <xsd:element minOccurs="0" name="OrderResponse" type="cidx:OrderResponseType"/>
+            </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="OrderChangeType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderType"/>
+                    <xsd:element minOccurs="0" name="OrderChange" type="cidx:OrderChangeType"/>
+            </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="OrderStatusListResponseType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderType"/>
+                    <xsd:element minOccurs="0" name="OrderStatusList" type="cidx:OrderStatusListResponseType"/>
+            </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="OrderStatusListRequestType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderType"/>
+                    <xsd:element minOccurs="0" name="OrderStatusListDateTimeRange" type="cidx:DateTimeRangeType"/>
+                    <xsd:element minOccurs="0" name="OrderStatusList" type="cidx:OrderStatusListRequestType"/>
+            </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="OrderStatusRequestType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderType"/>
+                    <xsd:element minOccurs="0" name="OrderStatusRequest" type="cidx:OrderStatusRequestType"/>
+            </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="OrderStatusResponseType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderType"/>
+                    <xsd:element minOccurs="0" name="OrderStatusResponse" type="cidx:OrderStatusResponseType"/>
+            </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ContractType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderType"/>
+                    <xsd:element minOccurs="0" name="Contract" type="cidx:ContractType"/>
+            </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ContractResponseType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderType"/>
+                    <xsd:element minOccurs="0" name="ContractResponse" type="cidx:ContractResponseType"/>
+            </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="RequestForQuoteType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderType"/>
+                    <xsd:element minOccurs="0" name="RequestForQuote" type="cidx:RequestForQuoteType"/>
+            </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="CustomerSpecificCatalogUpdateType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderType"/>
+                    <xsd:element minOccurs="0" name="CustomerSpecificCatalogUpdate" type="cidx:CustomerSpecificCatalogUpdateType"/>
+            </xsd:sequence>
+            </xsd:complexType>  
+           <xsd:complexType name="PriceSheetRequestType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderType"/>
+                    <xsd:element minOccurs="0" name="PriceSheetRequestDateTimeRange" type="cidx:DateTimeRangeType"/>
+                    <xsd:element minOccurs="0" name="PriceSheetRequest" type="cidx:PriceSheetRequestType"/>
+                </xsd:sequence>
+            </xsd:complexType>  
+             <xsd:complexType name="PriceSheetType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderType"/>
+                    <xsd:element minOccurs="0" name="PriceSheet" type="cidx:PriceSheetType"/>
+                </xsd:sequence>
+            </xsd:complexType>                  
+        </xsd:schema>
+    </types>
+    <message name="Confirm">
+        <part name="Confirm" type="tns:ConfirmType"/>
+    </message>
+    <message name="CESServiceFault">
+        <part name="Fault" type="xsd:string"/>
+    </message>
+    <message name="OrderCreate">
+        <part name="OrderCreate" type="tns:OrderCreateType"/>
+    </message>
+    <message name="OrderResponse">
+        <part name="OrderResponse" type="tns:OrderResponseType"/>
+    </message>
+    <message name="OrderChange">
+        <part name="OrderChange" type="tns:OrderChangeType"/>
+    </message>
+    <message name="OrderStatusListRequest">
+        <part name="OrderStatusListRequest" type="tns:OrderStatusListRequestType"/>
+    </message>
+    <message name="OrderStatusListResponse">
+        <part name="OrderStatusListResponse" type="tns:OrderStatusListResponseType"/>
+    </message>
+    <message name="OrderStatusRequest">
+        <part name="OrderStatusRequest" type="tns:OrderStatusRequestType"/>
+    </message>
+    <message name="OrderStatusResponse">
+        <part name="OrderStatusResponse" type="tns:OrderStatusResponseType"/>
+    </message>
+    <message name="Contract">
+        <part name="Contract" type="tns:ContractType"/>
+    </message>
+    <message name="ContractResponse">
+        <part name="ContractResponse" type="tns:ContractResponseType"/>
+    </message>
+    <message name="RequestForQuote">
+        <part name="RequestForQuote" type="tns:RequestForQuoteType"/>
+    </message>
+    <message name="CustomerSpecificCatalogUpdate">
+        <part name="CustomerSpecificCatalogUpdate" type="tns:CustomerSpecificCatalogUpdateType"/>
+    </message>
+    <message name="PriceSheetRequest">
+        <part name="PriceSheetRequest" type="tns:PriceSheetRequestType"/>
+    </message>
+    <message name="PriceSheet">
+        <part name="PriceSheet" type="tns:PriceSheetType"/>
+    </message>
+    <portType name="CESOrderManagementPortType">
+        <operation name="OrderCreate">
+            <input message="tns:OrderCreate"/>
+            <output message="tns:Confirm"/>
+            <fault name="CESOrderCreateServiceFault" message="tns:CESServiceFault"/>
+        </operation>
+        <operation name="OrderResponse">
+            <input message="tns:OrderResponse"/>
+            <output message="tns:Confirm"/>
+            <fault name="CESOrderResponseServiceFault" message="tns:CESServiceFault"/>
+        </operation>
+        <operation name="OrderChange">
+            <input message="tns:OrderChange"/>
+            <output message="tns:Confirm"/>
+            <fault name="CESOrderChangeServiceFault" message="tns:CESServiceFault"/>
+        </operation>
+        <operation name="OrderStatusListRequest">
+            <input message="tns:OrderStatusListRequest"/>
+            <output message="tns:Confirm"/>
+            <fault name="CESOrderStatusListRequestServiceFault" message="tns:CESServiceFault"/>
+        </operation>
+        <operation name="OrderStatusListResponse">
+            <input message="tns:OrderStatusListResponse"/>
+            <output message="tns:Confirm"/>
+            <fault name="CESOrderStatusListResponseServiceFault" message="tns:CESServiceFault"/>
+        </operation>
+        <operation name="OrderStatusRequest">
+            <input message="tns:OrderStatusRequest"/>
+            <output message="tns:Confirm"/>
+            <fault name="CESOrderStatusRequestServiceFault" message="tns:CESServiceFault"/>
+        </operation>
+        <operation name="OrderStatusResponse">
+            <input message="tns:OrderStatusResponse"/>
+            <output message="tns:Confirm"/>
+            <fault name="CESOrderStatusResponseServiceFault" message="tns:CESServiceFault"/>
+        </operation>
+        <operation name="Contract">
+            <input message="tns:Contract"/>
+            <output message="tns:Confirm"/>
+            <fault name="CESContractServiceFault" message="tns:CESServiceFault"/>
+        </operation>
+        <operation name="ContractResponse">
+            <input message="tns:ContractResponse"/>
+            <output message="tns:Confirm"/>
+            <fault name="CESContractResponseServiceFault" message="tns:CESServiceFault"/>
+        </operation>
+        <operation name="RequestForQuote">
+            <input message="tns:RequestForQuote"/>
+            <output message="tns:Confirm"/>
+            <fault name="CESRequestForQuoteServiceFault" message="tns:CESServiceFault"/>
+        </operation>
+        <operation name="CustomerSpecificCatalogUpdate">
+            <input message="tns:CustomerSpecificCatalogUpdate"/>
+            <output message="tns:Confirm"/>
+            <fault name="CESCustomerSpecificCatalogUpdateServiceFault" message="tns:CESServiceFault"/>
+        </operation>
+        <operation name="PriceSheetRequest">
+            <input message="tns:PriceSheetRequest"/>
+            <output message="tns:PriceSheet"/>
+            <fault name="CESPriceSheetRequestFault" message="tns:CESServiceFault"/>
+        </operation>
+    </portType>
+    <binding name="CESServiceBinding" type="tns:CESOrderManagementPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="OrderCreate">
+            <soap:operation soapAction="OrderCreate"/>
+            <input>
+                <soap:body use="literal"/>
+                <!--
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="policy:userNameTokenPolicy"/>
+                </wsp:Policy>
+                -->
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="CESOrderCreateServiceFault">
+                <soap:fault name="CESOrderCreateServiceFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="OrderResponse">
+            <soap:operation soapAction="OrderResponse"/>
+            <input>
+                <soap:body use="literal"/>
+                <!--
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="policy:userNameTokenPolicy"/>
+                </wsp:Policy>
+                -->
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="CESOrderResponseServiceFault">
+                <soap:fault name="CESOrderResponseServiceFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="OrderChange">
+            <soap:operation soapAction="OrderChange"/>
+            <input>
+                <soap:body use="literal"/>
+                <!--
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="policy:userNameTokenPolicy"/>
+                </wsp:Policy>
+                -->
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="CESOrderChangeServiceFault">
+                <soap:fault name="CESOrderChangeServiceFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="OrderStatusListRequest">
+            <soap:operation soapAction="OrderStatusListRequest"/>
+            <input>
+                <soap:body use="literal"/>
+                <!--
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="policy:userNameTokenPolicy"/>
+                </wsp:Policy>
+                -->
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="CESOrderStatusListRequestServiceFault">
+                <soap:fault name="CESOrderStatusListRequestServiceFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="OrderStatusListResponse">
+            <soap:operation soapAction="OrderStatusListResponse"/>
+            <input>
+                <soap:body use="literal"/>
+                <!--
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="policy:userNameTokenPolicy"/>
+                </wsp:Policy>
+                -->
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="CESOrderStatusListResponseServiceFault">
+                <soap:fault name="CESOrderStatusListResponseServiceFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="OrderStatusRequest">
+            <soap:operation soapAction="OrderStatusRequest"/>
+            <input>
+                <soap:body use="literal"/>
+                <!--
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="policy:userNameTokenPolicy"/>
+                </wsp:Policy>
+                -->
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="CESOrderStatusRequestServiceFault">
+                <soap:fault name="CESOrderStatusRequestServiceFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="OrderStatusResponse">
+            <soap:operation soapAction="OrderStatusResponse"/>
+            <input>
+                <soap:body use="literal"/>
+                <!--
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="policy:userNameTokenPolicy"/>
+                </wsp:Policy>
+                -->
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="CESOrderStatusResponseServiceFault">
+                <soap:fault name="CESOrderStatusResponseServiceFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="Contract">
+            <soap:operation soapAction="Contract"/>
+            <input>
+                <soap:body use="literal"/>
+                <!--
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="policy:userNameTokenPolicy"/>
+                </wsp:Policy>
+                -->
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="CESContractServiceFault">
+                <soap:fault name="CESContractServiceFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="ContractResponse">
+            <soap:operation soapAction="ContractResponse"/>
+            <input>
+                <soap:body use="literal"/>
+                <!--
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="policy:userNameTokenPolicy"/>
+                </wsp:Policy>
+                -->
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="CESContractResponseServiceFault">
+                <soap:fault name="CESContractResponseServiceFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="RequestForQuote">
+            <soap:operation soapAction="RequestForQuote"/>
+            <input>
+                <soap:body use="literal"/>
+                <!--
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="policy:userNameTokenPolicy"/>
+                </wsp:Policy>
+                -->
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="CESRequestForQuoteServiceFault">
+                <soap:fault name="CESRequestForQuoteServiceFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="CustomerSpecificCatalogUpdate">
+            <soap:operation soapAction="CustomerSpecificCatalogUpdate"/>
+            <input>
+                <soap:body use="literal"/>
+                <!--
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="policy:userNameTokenPolicy"/>
+                </wsp:Policy>
+                -->
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="CESCustomerSpecificCatalogUpdateServiceFault">
+                <soap:fault name="CESCustomerSpecificCatalogUpdateServiceFault" use="literal"/>
+            </fault>
+        </operation> 
+        <operation name="PriceSheetRequest">
+            <soap:operation soapAction="PriceSheetRequest"/>
+            <input>
+                <soap:body use="literal"/>
+                <!--
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="policy:userNameTokenPolicy"/>
+                </wsp:Policy>
+                -->
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="CESPriceSheetRequestServiceFault">
+                <soap:fault name="CESPriceSheetRequestServiceFault" use="literal"/>
+            </fault>
+        </operation>  
+      </binding>
+     <service name="CESOrderManagementService">
+        <port name="CESOrderManagementServicePort" binding="tns:CESServiceBinding">
+            <soap:address location="http://www.oagi.org/samples/ws/CESOrderManagement_5.4.0"/>
+        </port>
+    </service>
+</definitions>

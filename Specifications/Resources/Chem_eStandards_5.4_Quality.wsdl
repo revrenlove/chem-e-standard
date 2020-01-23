@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions
+     name="CESQualityBusinessServices"
+     targetNamespace="urn:cidx:names:specification:ces:wsdl:quality:5.4.0"
+     xmlns="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:tns="urn:cidx:names:specification:ces:wsdl:quality:5.4.0"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+     xmlns:cidx="urn:cidx:names:specification:ces:schema:all:5.4.0">
+     
+    <wsp:UsingPolicy xmlns:n1="http://schemas.xmlsoap.org/wsdl/" n1:Required="false"/>
+
+    <types>
+        <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+            xmlns:cidx="urn:cidx:names:specification:ces:schema:all:5.4.0" 
+            xmlns:tns="urn:cidx:names:specification:ces:wsdl:quality:5.4.0" 
+            targetNamespace="urn:cidx:names:specification:ces:wsdl:quality:5.4.0">
+            <import schemaLocation="xsd/OAGi_Chem_eStandards_5.4.0.xsd" namespace="urn:cidx:names:specification:ces:schema:all:5.4.0"/>
+            <xsd:complexType name="HeaderType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="businessProcess" type="tns:CESToken"/>
+                    <xsd:element minOccurs="0" name="processStep" type="tns:CESToken"/>
+                    <xsd:element minOccurs="0" name="partnerId" type="tns:CESToken"/>
+                    <xsd:element minOccurs="0" name="partnerType" type="tns:CESToken"/>
+                    <xsd:element minOccurs="0" name="conversationId" type="tns:CESToken"/>
+                    <xsd:element minOccurs="0" name="messageId" type="tns:CESToken"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="Header" type="tns:HeaderType"/>
+            <xsd:complexType name="HeaderResponseType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="processStep" type="tns:CESToken"/>
+                    <xsd:element minOccurs="0" name="messageId" type="tns:CESToken"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:simpleType name="CESToken">
+                <xsd:restriction base="xsd:token">
+                    <xsd:pattern value="[a-zA-Z0-9_\-:\.]*"/>
+                    <xsd:minLength value="0"/>
+                    <xsd:maxLength value="128"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+             <xsd:complexType name="ConfirmType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderResponseType"/>
+            </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="CertificateOfAnalysisType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderType"/>
+                    <xsd:element minOccurs="0" name="CertificateOfAnalysis" type="cidx:CertificateOfAnalysisType"/>
+            </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </types>
+    <message name="Confirm">
+        <part name="Confirm" type="tns:ConfirmType"/>
+    </message>
+    <message name="CESServiceFault">
+        <part name="Fault" type="xsd:string"/>
+    </message>
+    <message name="CertificateOfAnalysis">
+        <part name="CertificateOfAnalysis" type="tns:CertificateOfAnalysisType"/>
+    </message>
+    <portType name="CESQualityPortType">
+        <operation name="CertificateOfAnalysis">
+            <input message="tns:CertificateOfAnalysis"/>
+            <output message="tns:Confirm"/>
+            <fault name="CESCertificateOfAnalysisServiceFault" message="tns:CESServiceFault"/>
+        </operation>
+    </portType>
+    <binding name="CESServiceBinding" type="tns:CESQualityPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="CertificateOfAnalysis">
+            <soap:operation soapAction="CertificateOfAnalysis"/>
+            <input>
+                <soap:body use="literal"/>
+                <!--
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="policy:userNameTokenPolicy"/>
+                </wsp:Policy>
+                -->
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="CESCertificateOfAnalysisServiceFault">
+                <soap:fault name="CESCertificateOfAnalysisServiceFault" use="literal"/>
+            </fault>
+        </operation>
+      </binding>
+     <service name="CESQualityService">
+        <port name="CESQualityServicePort" binding="tns:CESServiceBinding">
+            <soap:address location="http://www.oagi.org/samples/ws/CESQuality_5.4"/>
+        </port>
+    </service>
+</definitions>

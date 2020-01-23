@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions
+     name="CESInventoryBusinessServices"
+     targetNamespace="urn:cidx:names:specification:ces:wsdl:inventory:5.4.0"
+     xmlns="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:tns="urn:cidx:names:specification:ces:wsdl:inventory:5.4.0"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+     xmlns:cidx="urn:cidx:names:specification:ces:schema:all:5.4.0">
+     
+    <wsp:UsingPolicy xmlns:n1="http://schemas.xmlsoap.org/wsdl/" n1:Required="false"/>
+
+    <types>
+        <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+            xmlns:cidx="urn:cidx:names:specification:ces:schema:all:5.4.0" 
+            xmlns:tns="urn:cidx:names:specification:ces:wsdl:inventory:5.4.0" 
+            targetNamespace="urn:cidx:names:specification:ces:wsdl:inventory:5.4.0">
+            <import schemaLocation="xsd/OAGi_Chem_eStandards_5.4.0.xsd" namespace="urn:cidx:names:specification:ces:schema:all:5.4.0"/>
+            <xsd:complexType name="HeaderType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="businessProcess" type="tns:CESToken"/>
+                    <xsd:element minOccurs="0" name="processStep" type="tns:CESToken"/>
+                    <xsd:element minOccurs="0" name="partnerId" type="tns:CESToken"/>
+                    <xsd:element minOccurs="0" name="partnerType" type="tns:CESToken"/>
+                    <xsd:element minOccurs="0" name="conversationId" type="tns:CESToken"/>
+                    <xsd:element minOccurs="0" name="messageId" type="tns:CESToken"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="Header" type="tns:HeaderType"/>
+            <xsd:complexType name="HeaderResponseType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="processStep" type="tns:CESToken"/>
+                    <xsd:element minOccurs="0" name="messageId" type="tns:CESToken"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:simpleType name="CESToken">
+                <xsd:restriction base="xsd:token">
+                    <xsd:pattern value="[a-zA-Z0-9_\-:\.]*"/>
+                    <xsd:minLength value="0"/>
+                    <xsd:maxLength value="128"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:complexType name="ConfirmType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderResponseType"/>
+            </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="SupplyPlanType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderType"/>
+                    <xsd:element minOccurs="0" name="SupplyPlan" type="cidx:SupplyPlanType"/>
+            </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ReceiptNoticeType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderType"/>
+                    <xsd:element minOccurs="0" name="ReceiptNotice" type="cidx:ReceiptNoticeType"/>
+            </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ProductMovementReportType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderType"/>
+                    <xsd:element minOccurs="0" name="OrderStatusList" type="cidx:ProductMovementReportType"/>
+            </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="InventoryActualUsageResponseType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderResponseType"/>
+                    <xsd:element minOccurs="0" name="InventoryActualUsageResponseList" type="cidx:InventoryActualUsageResponseType"/>
+            </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="InventoryActualUsageType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderType"/>
+                      <xsd:element minOccurs="0" name="InventoryActualUsage" type="cidx:InventoryActualUsageType"/>
+            </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="DemandForecastType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderType"/>
+                    <xsd:element minOccurs="0" name="DemandForecast" type="cidx:DemandForecastType"/>
+            </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </types>
+    <message name="Confirm">
+        <part name="Confirm" type="tns:ConfirmType"/>
+    </message>
+    <message name="CESServiceFault">
+        <part name="Fault" type="xsd:string"/>
+    </message>
+    <message name="SupplyPlan">
+        <part name="SupplyPlan" type="tns:SupplyPlanType"/>
+    </message>
+    <message name="ReceiptNotice">
+        <part name="ReceiptNotice" type="tns:ReceiptNoticeType"/>
+    </message>
+    <message name="InventoryActualUsageResponse">
+        <part name="InventoryActualUsageResponse" type="tns:InventoryActualUsageResponseType"/>
+    </message>
+    <message name="ProductMovementReport">
+        <part name="ProductMovementReport" type="tns:ProductMovementReportType"/>
+    </message>
+    <message name="InventoryActualUsage">
+        <part name="InventoryActualUsage" type="tns:InventoryActualUsageType"/>
+    </message>
+    <message name="DemandForecast">
+        <part name="DemandForecast" type="tns:DemandForecastType"/>
+    </message>
+    <portType name="CESInventoryPortType">
+        <operation name="SupplyPlan">
+            <input message="tns:SupplyPlan"/>
+            <output message="tns:Confirm"/>
+            <fault name="CESSupplyPlanServiceFault" message="tns:CESServiceFault"/>
+        </operation>
+        <operation name="ReceiptNotice">
+            <input message="tns:ReceiptNotice"/>
+            <output message="tns:Confirm"/>
+            <fault name="CESReceiptNoticeServiceFault" message="tns:CESServiceFault"/>
+        </operation>
+        <operation name="ProductMovementReport">
+            <input message="tns:ProductMovementReport"/>
+            <output message="tns:Confirm"/>
+            <fault name="CESProductMovementReportServiceFault" message="tns:CESServiceFault"/>
+        </operation>
+        <operation name="InventoryActualUsage">
+            <input message="tns:InventoryActualUsage"/>
+            <output message="tns:InventoryActualUsageResponse"/>
+            <fault name="CESInventoryActualUsageServiceFault" message="tns:CESServiceFault"/>
+        </operation>
+        <operation name="DemandForecast">
+            <input message="tns:DemandForecast"/>
+            <output message="tns:Confirm"/>
+            <fault name="CESDemandForecastServiceFault" message="tns:CESServiceFault"/>
+        </operation>
+    </portType>
+    <binding name="CESServiceBinding" type="tns:CESInventoryPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="SupplyPlan">
+            <soap:operation soapAction="SupplyPlan"/>
+            <input>
+                <soap:body use="literal"/>
+                <!--
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="policy:userNameTokenPolicy"/>
+                </wsp:Policy>
+                -->
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="CESSupplyPlanServiceFault">
+                <soap:fault name="CESSupplyPlanServiceFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="ReceiptNotice">
+            <soap:operation soapAction="ReceiptNotice"/>
+            <input>
+                <soap:body use="literal"/>
+                <!--
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="policy:userNameTokenPolicy"/>
+                </wsp:Policy>
+                -->
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="CESReceiptNoticeServiceFault">
+                <soap:fault name="CESReceiptNoticeServiceFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="ProductMovementReport">
+            <soap:operation soapAction="ProductMovementReport"/>
+            <input>
+                <soap:body use="literal"/>
+                <!--
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="policy:userNameTokenPolicy"/>
+                </wsp:Policy>
+                -->
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="CESProductMovementReportServiceFault">
+                <soap:fault name="CESProductMovementReportServiceFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="InventoryActualUsage">
+            <soap:operation soapAction="InventoryActualUsage"/>
+            <input>
+                <soap:body use="literal"/>
+                <!--
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="policy:userNameTokenPolicy"/>
+                </wsp:Policy>
+                -->
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="CESInventoryActualUsageServiceFault">
+                <soap:fault name="CESInventoryActualUsageServiceFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="DemandForecast">
+            <soap:operation soapAction="DemandForecast"/>
+            <input>
+                <soap:body use="literal"/>
+                <!--
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="policy:userNameTokenPolicy"/>
+                </wsp:Policy>
+                -->
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="CESDemandForecastServiceFault">
+                <soap:fault name="CESDemandForecastServiceFault" use="literal"/>
+            </fault>
+        </operation>
+      </binding>
+     <service name="CESInventoryService">
+        <port name="CESInventoryServicePort" binding="tns:CESServiceBinding">
+            <soap:address location="http://www.oagi.org/samples/ws/CESInventory_5.4.0"/>
+        </port>
+    </service>
+</definitions>

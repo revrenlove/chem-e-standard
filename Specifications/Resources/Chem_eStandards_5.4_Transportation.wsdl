@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions
+     name="CESTransportationBusinessServices"
+     targetNamespace="urn:cidx:names:specification:ces:wsdl:transportation:5.4.0"
+     xmlns="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:tns="urn:cidx:names:specification:ces:wsdl:transportation:5.4.0"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+     xmlns:cidx="urn:cidx:names:specification:ces:schema:all:5.4.0">
+     
+    <wsp:UsingPolicy xmlns:n1="http://schemas.xmlsoap.org/wsdl/" n1:Required="false"/>
+
+    <types>
+        <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+            xmlns:cidx="urn:cidx:names:specification:ces:schema:all:5.4.0" 
+            xmlns:tns="urn:cidx:names:specification:ces:wsdl:transportation:5.4.0" 
+            targetNamespace="urn:cidx:names:specification:ces:wsdl:transportation:5.4.0">
+            <import schemaLocation="xsd/OAGi_Chem_eStandards_5.4.0.xsd" namespace="urn:cidx:names:specification:ces:schema:all:5.4.0"/>
+            <xsd:complexType name="HeaderType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="businessProcess" type="tns:CESToken"/>
+                    <xsd:element minOccurs="0" name="processStep" type="tns:CESToken"/>
+                    <xsd:element minOccurs="0" name="partnerId" type="tns:CESToken"/>
+                    <xsd:element minOccurs="0" name="partnerType" type="tns:CESToken"/>
+                    <xsd:element minOccurs="0" name="conversationId" type="tns:CESToken"/>
+                    <xsd:element minOccurs="0" name="messageId" type="tns:CESToken"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="Header" type="tns:HeaderType"/>
+            <xsd:complexType name="HeaderResponseType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="processStep" type="tns:CESToken"/>
+                    <xsd:element minOccurs="0" name="messageId" type="tns:CESToken"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:simpleType name="CESToken">
+                <xsd:restriction base="xsd:token">
+                    <xsd:pattern value="[a-zA-Z0-9_\-:\.]*"/>
+                    <xsd:minLength value="0"/>
+                    <xsd:maxLength value="128"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:complexType name="ConfirmType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderResponseType"/>
+            </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ShipNoticeListRequestType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderType"/>
+                    <xsd:element minOccurs="0" name="ShipNoticeListRequest" type="cidx:ShipNoticeListRequestType"/>
+            </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="ShipNoticeListType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderType"/>
+                    <xsd:element minOccurs="0" name="ShipNoticeList" type="cidx:ShipNoticeListType"/>
+            </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ShipNoticeType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderType"/>
+                    <xsd:element minOccurs="0" name="ShipNotice" type="cidx:ShipNoticeType"/>
+            </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ShipmentStatusType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderType"/>
+                    <xsd:element minOccurs="0" name="OrderStatusList" type="cidx:ShipmentStatusType"/>
+            </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ShipmentInstructionsType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderType"/>
+                    <xsd:element minOccurs="0" name="OrderStatusListDateTimeRange" type="cidx:DateTimeRangeType"/>
+                    <xsd:element minOccurs="0" name="OrderStatusList" type="cidx:ShipmentInstructionsType"/>
+            </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="LoadTenderResponseType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderType"/>
+                    <xsd:element minOccurs="0" name="LoadTenderResponse" type="cidx:LoadTenderResponseType"/>
+            </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="LoadTenderOceanType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderType"/>
+                    <xsd:element minOccurs="0" name="LoadTenderOcean" type="cidx:LoadTenderOceanType"/>
+            </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="LoadTenderMotorType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderType"/>
+                    <xsd:element minOccurs="0" name="LoadTenderMotor" type="cidx:LoadTenderMotorType"/>
+            </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="DeliveryReceiptType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderType"/>
+                    <xsd:element minOccurs="0" name="DeliveryReceipt" type="cidx:DeliveryReceiptType"/>
+            </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="AcceptanceNotificationType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="Header" type="tns:HeaderType"/>
+                    <xsd:element minOccurs="0" name="AcceptanceNotification" type="cidx:AcceptanceNotificationType"/>
+            </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </types>
+    <message name="Confirm">
+        <part name="Confirm" type="tns:ConfirmType"/>
+    </message>
+    <message name="CESServiceFault">
+        <part name="Fault" type="xsd:string"/>
+    </message>
+    <message name="ShipNoticeListRequest">
+        <part name="ShipNoticeListRequest" type="tns:ShipNoticeListRequestType"/>
+    </message>
+    <message name="ShipNoticeList">
+        <part name="ShipNoticeList" type="tns:ShipNoticeListType"/>
+    </message>
+    <message name="ShipNotice">
+        <part name="ShipNotice" type="tns:ShipNoticeType"/>
+    </message>
+    <message name="ShipmentInstructions">
+        <part name="ShipmentInstructions" type="tns:ShipmentInstructionsType"/>
+    </message>
+    <message name="ShipmentStatus">
+        <part name="ShipmentStatus" type="tns:ShipmentStatusType"/>
+    </message>
+    <message name="LoadTenderResponse">
+        <part name="LoadTenderResponse" type="tns:LoadTenderResponseType"/>
+    </message>
+    <message name="LoadTenderOcean">
+        <part name="LoadTenderOcean" type="tns:LoadTenderOceanType"/>
+    </message>
+    <message name="LoadTenderMotor">
+        <part name="LoadTenderMotor" type="tns:LoadTenderMotorType"/>
+    </message>
+    <message name="DeliveryReceipt">
+        <part name="DeliveryReceipt" type="tns:DeliveryReceiptType"/>
+    </message>
+    <message name="AcceptanceNotification">
+        <part name="AcceptanceNotification" type="tns:AcceptanceNotificationType"/>
+    </message>
+    <portType name="CESTransportationPortType">
+        <operation name="ShipNoticeListRequest">
+            <input message="tns:ShipNoticeListRequest"/>
+            <output message="tns:ShipNoticeList"/>
+            <fault name="CESShipNoticeListRequestServiceFault" message="tns:CESServiceFault"/>
+        </operation>
+        <operation name="ShipNotice">
+            <input message="tns:ShipNotice"/>
+            <output message="tns:Confirm"/>
+            <fault name="CESShipNoticeServiceFault" message="tns:CESServiceFault"/>
+        </operation>
+        <operation name="ShipmentInstructions">
+            <input message="tns:ShipmentInstructions"/>
+            <output message="tns:Confirm"/>
+            <fault name="CESShipmentInstructionsServiceFault" message="tns:CESServiceFault"/>
+        </operation>
+        <operation name="ShipmentStatus">
+            <input message="tns:ShipmentStatus"/>
+            <output message="tns:Confirm"/>
+            <fault name="CESShipmentStatusServiceFault" message="tns:CESServiceFault"/>
+        </operation>
+        <operation name="LoadTenderOcean">
+            <input message="tns:LoadTenderOcean"/>
+            <output message="tns:LoadTenderResponse"/>
+            <fault name="CESLoadTenderOceanServiceFault" message="tns:CESServiceFault"/>
+        </operation>
+        <operation name="LoadTenderMotor">
+            <input message="tns:LoadTenderMotor"/>
+            <output message="tns:LoadTenderResponse"/>
+            <fault name="CESLoadTenderMotorServiceFault" message="tns:CESServiceFault"/>
+        </operation>
+        <operation name="DeliveryReceipt">
+            <input message="tns:DeliveryReceipt"/>
+            <output message="tns:Confirm"/>
+            <fault name="CESDeliveryReceiptServiceFault" message="tns:CESServiceFault"/>
+        </operation>
+        <operation name="AcceptanceNotification">
+            <input message="tns:AcceptanceNotification"/>
+            <output message="tns:Confirm"/>
+            <fault name="CESAcceptanceNotificationServiceFault" message="tns:CESServiceFault"/>
+        </operation>
+    </portType>
+    <binding name="CESServiceBinding" type="tns:CESTransportationPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="ShipNoticeListRequest">
+            <soap:operation soapAction="ShipNoticeListRequest"/>
+            <input>
+                <soap:body use="literal"/>
+                <!--
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="policy:userNameTokenPolicy"/>
+                </wsp:Policy>
+                -->
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="CESShipNoticeListRequestServiceFault">
+                <soap:fault name="CESShipNoticeListRequestServiceFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="ShipNotice">
+            <soap:operation soapAction="ShipNotice"/>
+            <input>
+                <soap:body use="literal"/>
+                <!--
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="policy:userNameTokenPolicy"/>
+                </wsp:Policy>
+                -->
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="CESShipNoticeServiceFault">
+                <soap:fault name="CESShipNoticeServiceFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="ShipmentInstructions">
+            <soap:operation soapAction="ShipmentInstructions"/>
+            <input>
+                <soap:body use="literal"/>
+                <!--
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="policy:userNameTokenPolicy"/>
+                </wsp:Policy>
+                -->
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="CESShipmentInstructionsServiceFault">
+                <soap:fault name="CESShipmentInstructionsServiceFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="ShipmentStatus">
+            <soap:operation soapAction="ShipmentStatus"/>
+            <input>
+                <soap:body use="literal"/>
+                <!--
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="policy:userNameTokenPolicy"/>
+                </wsp:Policy>
+                -->
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="CESShipmentStatusServiceFault">
+                <soap:fault name="CESShipmentStatusServiceFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="LoadTenderOcean">
+            <soap:operation soapAction="LoadTenderOcean"/>
+            <input>
+                <soap:body use="literal"/>
+                <!--
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="policy:userNameTokenPolicy"/>
+                </wsp:Policy>
+                -->
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="CESLoadTenderOceanServiceFault">
+                <soap:fault name="CESLoadTenderOceanServiceFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="LoadTenderMotor">
+            <soap:operation soapAction="LoadTenderMotor"/>
+            <input>
+                <soap:body use="literal"/>
+                <!--
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="policy:userNameTokenPolicy"/>
+                </wsp:Policy>
+                -->
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="CESLoadTenderMotorServiceFault">
+                <soap:fault name="CESLoadTenderMotorServiceFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="DeliveryReceipt">
+            <soap:operation soapAction="DeliveryReceipt"/>
+            <input>
+                <soap:body use="literal"/>
+                <!--
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="policy:userNameTokenPolicy"/>
+                </wsp:Policy>
+                -->
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="CESDeliveryReceiptServiceFault">
+                <soap:fault name="CESDeliveryReceiptServiceFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="AcceptanceNotification">
+            <soap:operation soapAction="AcceptanceNotification"/>
+            <input>
+                <soap:body use="literal"/>
+                <!--
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="policy:userNameTokenPolicy"/>
+                </wsp:Policy>
+                -->
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="CESAcceptanceNotificationServiceFault">
+                <soap:fault name="CESAcceptanceNotificationServiceFault" use="literal"/>
+            </fault>
+        </operation>
+ 
+      </binding>
+     <service name="CESTransportationService">
+        <port name="CESTransportationServicePort" binding="tns:CESServiceBinding">
+            <soap:address location="http://www.oagi.org/samples/ws/CESTransportation_1.0"/>
+        </port>
+    </service>
+</definitions>

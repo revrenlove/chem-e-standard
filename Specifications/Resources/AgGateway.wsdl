@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WL5G3N2:definitions name="AgGatewayDocumentExchange" targetNamespace="urn:aggateway:names:ws:docexchange" xmlns:WL5G3N0="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:WL5G3N1="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:WL5G3N2="http://schemas.xmlsoap.org/wsdl/" xmlns:WL5G3N3="urn:aggateway:names:ws:docexchange" xmlns:WL5G3N4="http://www.w3.org/2001/XMLSchema" xmlns:WL5G3N5="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+  <WL5G3N0:Policy WL5G3N1:Id="userNameTokenPolicy">
+    <wssp:Identity xmlns:wssp="http://www.bea.com/wls90/security/policy">
+      <wssp:SupportedTokens>
+        <wssp:SecurityToken TokenType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#UsernameToken">
+          <wssp:UsePassword Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText"/>
+        </wssp:SecurityToken>
+      </wssp:SupportedTokens>
+    </wssp:Identity>
+  </WL5G3N0:Policy>
+  <WL5G3N0:Policy WL5G3N1:Id="Mtom.xml">
+    <wsoma:OptimizedMimeSerialization xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"/>
+  </WL5G3N0:Policy>
+  <wsp:UsingPolicy WL5G3N2:Required="true"/>
+  <WL5G3N2:types>
+    <WL5G3N2:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:aggateway:names:ws:docexchange" xmlns="urn:aggateway:names:ws:docexchange" xmlns:WL5G3N0="http://schemas.xmlsoap.org/wsdl/" xmlns:WL5G3N1="urn:aggateway:names:ws:docexchange" xmlns:WL5G3N2="http://www.w3.org/2001/XMLSchema" xmlns:WL5G3N3="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="urn:aggateway:names:ws:docexchange" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <WL5G3N2:element name="inboundData" type="inboundData"/>
+      <WL5G3N2:complexType name="inboundData">
+        <WL5G3N2:sequence>
+          <WL5G3N2:element minOccurs="0" name="businessProcess" type="aggatewayToken"/>
+          <WL5G3N2:element minOccurs="0" name="processStep" type="aggatewayToken"/>
+          <WL5G3N2:element minOccurs="0" name="partnerId" type="aggatewayToken"/>
+          <WL5G3N2:element minOccurs="0" name="partnerType" type="aggatewayToken"/>
+          <WL5G3N2:element minOccurs="0" name="conversationId" type="aggatewayToken"/>
+          <WL5G3N2:element minOccurs="0" name="messageId" type="aggatewayToken"/>
+          <WL5G3N2:element minOccurs="1" name="xmlPayload" type="xmlPayload"/>
+        </WL5G3N2:sequence>
+      </WL5G3N2:complexType>
+      <WL5G3N2:element name="outboundData" type="outboundData"/>
+      <WL5G3N2:complexType name="outboundData">
+        <WL5G3N2:sequence>
+          <WL5G3N2:element minOccurs="0" name="processStep" type="aggatewayToken"/>
+          <WL5G3N2:element minOccurs="0" name="messageId" type="aggatewayToken"/>
+          <WL5G3N2:element maxOccurs="unbounded" minOccurs="0" name="xmlPayload" type="xmlPayload"/>
+        </WL5G3N2:sequence>
+      </WL5G3N2:complexType>
+      <WL5G3N2:simpleType name="aggatewayToken">
+        <WL5G3N2:restriction base="xsd:token">
+          <WL5G3N2:pattern value="[a-zA-Z0-9_\-:\.]*"/>
+          <WL5G3N2:minLength value="0"/>
+          <WL5G3N2:maxLength value="128"/>
+        </WL5G3N2:restriction>
+      </WL5G3N2:simpleType>
+      <WL5G3N2:complexType name="xmlPayload">
+        <WL5G3N2:sequence>
+          <WL5G3N2:any namespace="##any" processContents="lax"/>
+        </WL5G3N2:sequence>
+      </WL5G3N2:complexType>
+    </WL5G3N2:schema>
+  </WL5G3N2:types>
+  <WL5G3N2:message name="DocExchangeInput">
+    <WL5G3N2:part element="WL5G3N3:inboundData" name="parameters"/>
+  </WL5G3N2:message>
+  <WL5G3N2:message name="DocExchangeOutput">
+    <WL5G3N2:part name="result" type="WL5G3N3:outboundData"/>
+  </WL5G3N2:message>
+  <WL5G3N2:message name="DocExchangeFault">
+    <WL5G3N2:part name="problem" type="WL5G3N4:string"/>
+  </WL5G3N2:message>
+  <WL5G3N2:portType name="DocExchangePortType">
+    <WL5G3N2:operation name="execute">
+      <WL5G3N2:input message="WL5G3N3:DocExchangeInput"/>
+      <WL5G3N2:output message="WL5G3N3:DocExchangeOutput"/>
+      <WL5G3N2:fault message="WL5G3N3:DocExchangeFault" name="DocExchangeProblem"/>
+    </WL5G3N2:operation>
+  </WL5G3N2:portType>
+  <WL5G3N2:binding name="DocExchangeBinding" type="WL5G3N3:DocExchangePortType">
+    <wsp:Policy>
+      <wsp:PolicyReference URI="#Mtom.xml"/>
+    </wsp:Policy>
+    <WL5G3N5:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <WL5G3N2:operation name="execute">
+      <WL5G3N5:operation soapAction="execute"/>
+      <WL5G3N2:input>
+        <wsp:Policy>
+          <wsp:PolicyReference URI="#userNameTokenPolicy"/>
+        </wsp:Policy>
+        <WL5G3N5:body use="literal"/>
+      </WL5G3N2:input>
+      <WL5G3N2:output>
+        <WL5G3N5:body use="literal"/>
+      </WL5G3N2:output>
+      <WL5G3N2:fault name="DocExchangeProblem">
+        <WL5G3N5:fault name="DocExchangeProblem" use="literal"/>
+      </WL5G3N2:fault>
+    </WL5G3N2:operation>
+  </WL5G3N2:binding>
+  <WL5G3N2:service name="AgGatewayDocumentExchange">
+    <WL5G3N2:port binding="WL5G3N3:DocExchangeBinding" name="AgGatewayDocumentExchangePort">
+      <WL5G3N5:address location="http://services.monsanto.com:80/AgGateway"/>
+    </WL5G3N2:port>
+  </WL5G3N2:service>
+</WL5G3N2:definitions>
